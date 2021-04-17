@@ -8,7 +8,7 @@ consumes:
 produces:
   -  application/json
 
-basePath:  /api
+basePath: /api
 
 # Percorsi gestibili
 paths:
@@ -16,20 +16,20 @@ paths:
 
     # Legge tutte le persone
     get:
-      operationId:  persone.read
+      operationId: persone.read
       tags:
-        -  Persone
-      summary:  Struttura dati Persone
-      description:  Legge la lista di persone
+        - Persone
+      summary: Legge tutte le persone
+      description: Legge la lista di persone
       responses:
         200:
-          description:  Operazione di lettura effettuata con successo
+          description: Operazione di lettura effettuata con successo
           schema:
-            type:  array
+            type: array
             items:
               properties:
                 name:
-                  type:  string
+                  type: string
 
 
   /persone/{nome}:

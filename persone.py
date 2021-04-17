@@ -1,23 +1,19 @@
 from flask import make_response, abort
+import json
 
-PERSONE = {
-    "Ciccio",
-    "Mimmo",
-    "Franco",
-    "Emanuele Fiorente",
-    "Emanuele Antonicelli"
-}
+# Carico la lista di persone dal file
+PERSONE = json.load(open("dati/persone.json"))
 
 # Handler per una richiesta di tipo GET all'api
 def read():
     """
 
-    Questa funzione risponde alla chiamata per /api/persone restituendo la lista delle persone
+    Questa funzione risponde alla chiamata per /api/persone restituendo la lista ordinata delle persone
     :return: Lista ordinata delle persone
 
     """
 
-    return list(sorted(PERSONE))
+    return sorted(PERSONE)
 
 
 def create(nome):
@@ -32,10 +28,15 @@ def create(nome):
 
     # Se la persona non è nella lista, la aggiungo
     if nome not in PERSONE and nome is not None:
-        PERSONE.add(nome)
+        # Aggiungo la persona alla lista
+        PERSONE.append(nome)
+        # Prima di fare la risposta aggiorno il file permanente
+        with open("dati/persone.json", "w") as out:
+            json.dump(PERSONE, out)
+
+        # Faccio la risposta
         return make_response(str(nome) + " creato con successo", 201)
 
-    # Altrimenti do errore
     else:
         abort(
             406,
@@ -52,9 +53,16 @@ def delete(nome):
 
     """
 
+    # Se la persona è nella lista la rimuovo
     if nome in PERSONE:
-        PERSONE.discard(nome)
+        # Rimuovo la persona dalla variabile
+        PERSONE.remove(nome)
+        # Aggiorno il file json permanente dopo la modifica
+        with open("dati/persone.json", "w") as out:
+            json.dump(PERSONE, out)
+        # Faccio la risposta alla richiesta
         return make_response(str(nome) + " eliminato con successo", 200)
+
     else:
         abort(
             404,

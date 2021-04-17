@@ -1,11 +1,9 @@
 from flask import Flask, render_template
-
 import connexion
 
 # Creo l'istanza dell'applicazione
 # La specification_dir indica dove trovare il file swagger
-app = connexion.App(__name__, specification_dir='./')
-
+app = connexion.FlaskApp(__name__, specification_dir='./')
 # Leggo il file swagger per configurare l'endpoint dell'api
 app.add_api("swagger.yml")
 
@@ -22,4 +20,5 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(host = '0.0.0.0', port = 5000, debug = False) 
+    # Per esporlo alla rete modificare host = "0.0.0.0"
+    app.run(host = 'localhost', port = 5000, debug = True)
