@@ -1,0 +1,68 @@
+swagger: "2.0"
+info:
+  description: File swagger per configurazione dell'endpoint
+  version: "1.0.0"
+  title: File swagger per REST API
+consumes:
+  -  application/json
+produces:
+  -  application/json
+
+basePath:  /api
+
+# Percorsi gestibili
+paths:
+  /persone:
+
+    # Legge tutte le persone
+    get:
+      operationId:  persone.read
+      tags:
+        -  Persone
+      summary:  Struttura dati Persone
+      description:  Legge la lista di persone
+      responses:
+        200:
+          description:  Operazione di lettura effettuata con successo
+          schema:
+            type:  array
+            items:
+              properties:
+                name:
+                  type:  string
+
+
+  /persone/{nome}:
+    # Crea una nuova persona
+    post:
+      operationId: persone.create
+      tags:
+        - Persone
+      summary: Crea una nuova persona e la aggiunge alla lista
+      description: Crea una nuova persona
+      parameters:
+        - name: nome
+          in: path
+          description: Persona da creare
+          type: string
+          required: True
+      responses:
+        201:
+          description: Persona creata
+
+    # Elimina una persona dalla lista
+    delete:
+      operationId: persone.delete
+      tags:
+        -  Persone
+      summary:  Elimina una persona dalla lista
+      description:  Elimina una persona
+      parameters:
+        - name: nome
+          in: path
+          description: Persona da eliminare
+          type: string
+          required: True
+      responses:
+        200:
+          description: Persona eliminata con successo
