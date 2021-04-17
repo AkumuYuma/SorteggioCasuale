@@ -8,12 +8,12 @@ PERSONE = json.load(open("dati/persone.json"))
 def read():
     """
 
-    Questa funzione risponde alla chiamata per /api/persone restituendo la lista ordinata delle persone
+    Questa funzione risponde alla chiamata per /api/persone restituendo la lista ordinata dei nomi
     :return: Lista ordinata delle persone
 
     """
 
-    return sorted(PERSONE)
+    return sorted(PERSONE["nomi"])
 
 
 def create(nome):
@@ -29,7 +29,7 @@ def create(nome):
     # Se la persona non è nella lista, la aggiungo
     if nome not in PERSONE and nome is not None:
         # Aggiungo la persona alla lista
-        PERSONE.append(nome)
+        PERSONE["nomi"].append(nome)
         # Prima di fare la risposta aggiorno il file permanente
         with open("dati/persone.json", "w") as out:
             json.dump(PERSONE, out)
@@ -54,9 +54,9 @@ def delete(nome):
     """
 
     # Se la persona è nella lista la rimuovo
-    if nome in PERSONE:
+    if nome in PERSONE["nomi"]:
         # Rimuovo la persona dalla variabile
-        PERSONE.remove(nome)
+        PERSONE["nomi"].remove(nome)
         # Aggiorno il file json permanente dopo la modifica
         with open("dati/persone.json", "w") as out:
             json.dump(PERSONE, out)

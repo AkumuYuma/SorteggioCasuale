@@ -1,0 +1,20 @@
+.container {
+  width: 960px;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: #fff
+}
+
+.header {
+  width: 960;
+  font-size: 30px;
+  padding: 50px;
+  background: #21aabd;
+  border: 2px solid red;
+  text-align: center;
+}
+
+#risultato {
+  font-size: 40px;
+  margin-top: 10%;
+}
