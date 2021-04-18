@@ -13,7 +13,6 @@ basePath: /api
 # Percorsi gestibili
 paths:
   /persone:
-
     # Legge tutte le persone
     get:
       operationId: persone.read
@@ -30,6 +29,30 @@ paths:
               properties:
                 name:
                   type: string
+
+  /persone/casuale/:
+    # Estrae una persona casuale (se viene passato {nome} lo ignora dall'estrazione)
+    post:
+      operationId: persone.estrai
+      tags:
+        - Persone
+      summary: Estrae una persona casuale
+      description: Estrae casualmente una persona dalla lista, la persona estratta viene eliminata
+      parameters:
+        - name: nome
+          in: body
+          description: persona da ignorare nell'estrazione
+          required: False
+          schema:
+            type: object
+      responses:
+        200:
+          description: Estrazione effettuata con successo
+          schema:
+            properties:
+              nome:
+                type: string
+                description: Nome della persona estratta
 
 
   /persone/{nome}:

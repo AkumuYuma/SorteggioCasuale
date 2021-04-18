@@ -1,5 +1,6 @@
 from flask import make_response, abort
 import json
+import random
 
 # Carico la lista di persone dal file
 PERSONE = json.load(open("dati/persone.json"))
@@ -14,6 +15,62 @@ def read():
     """
 
     return sorted(PERSONE["nomi"])
+
+def estrai(nome):
+    """
+    Questa funzione estrae casualmente una persona dalla lista. Se viene passato il parametro nome, esso viene ignorato durante l'estrazione
+    La persona estratta viene eliminata dalla lista.
+    Nota: Questa operazione non sovrascrive il file statico, cambia solo il database dinamico.
+    Bisogna passare un dizionario del tipo:
+    {
+        "nome": "...."
+    }
+
+    :param nome: Dizionario. Persona da ignorare nel sorteggio in nome["nome"]
+    :return: Persona estratta
+
+    """
+
+    # Se la lista è vuota esco subito
+    if not PERSONE["nomi"]:
+        abort(
+            406,
+            description = "La lista è vuota"
+        )
+
+    # Gestione nel caso in cui venga passato il parametro
+    if nome:
+        # Se la sintassi è sbagliata
+        if not "nome" in nome:
+            abort(
+                400,
+                description = """Sintassi sbagliata nella richiesta la richiesta deve essere del tipo:{"nome": "...."}"""
+            )
+        # Se la lista contiene solo il nome da ignorare
+        if PERSONE["nomi"] == [nome["nome"]]:
+            abort(
+                406,
+                description = "La lista contiene solo te stesso"
+            )
+        # Se la persona da ignorare non è nella lista
+        elif nome["nome"] not in PERSONE["nomi"]:
+            abort(
+                404,
+                description = "La persona da ignorare non è nella lista"
+            )
+
+        # Lo rimuovo per non sorteggiarlo
+        PERSONE["nomi"].remove(nome["nome"])
+
+    # Estraggo un elemento casuale
+    estratto = PERSONE["nomi"].pop(random.randint(0, len(PERSONE["nomi"]) - 1))
+
+    # Se viene passato il nome lo riaggiungo alla lista
+    if (nome):
+        PERSONE["nomi"].append(nome["nome"])
+
+    return estratto
+
 
 
 def create(nome):
