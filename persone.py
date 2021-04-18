@@ -27,7 +27,7 @@ def create(nome):
     """
 
     # Se la persona non è nella lista, la aggiungo
-    if nome not in PERSONE and nome is not None:
+    if nome not in PERSONE["nomi"] and nome is not None:
         # Aggiungo la persona alla lista
         PERSONE["nomi"].append(nome)
         # Prima di fare la risposta aggiorno il file permanente
