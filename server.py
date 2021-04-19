@@ -16,8 +16,16 @@ def home():
     Restituisce il rendering del template 'home.html'
 
     """
-    return render_template('home.html')
+    return render_template("home.html")
 
+@app.route("/controllo")
+def controllo():
+    """
+
+    Questa funzione renderizza la pagina di controllo delle persone
+
+    """
+    return render_template("controllo.html")
 
 if __name__ == "__main__":
     # Per esporlo alla rete modificare host = "0.0.0.0"
