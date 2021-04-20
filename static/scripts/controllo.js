@@ -1,6 +1,6 @@
 let readURL = "http://localhost:5000/api/persone"
 let listaPersone;
-let intervalloAggiornamento = 5000;
+let intervalloAggiornamento = 2000;
 
 function setup() {
   noCanvas();

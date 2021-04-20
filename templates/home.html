@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>Sorteggio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" href="static/styles/home.css">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
 </head>
@@ -13,13 +12,12 @@
   <div class="container">
     <div class="header">
       <h1>Pesca della fortuna</h1>
-      <button type="button" name="button" id="pesca">Sorteggia Nome</button>
+      <p>Seleziona il tuo nome (per non sorteggiarti da solo)</p>
+      <select class="selezione" id="selezione"></select>
+      <br>
+      <button id="pesca">Sorteggia Nome</button>
       <p id="risultato"></p>
     </div>
-
-  </div>
-  <div class="lista">
-    <p id="listaPersone">Lista: <br></p>
   </div>
   <script src="static/scripts/home.js"></script>
 </body>
