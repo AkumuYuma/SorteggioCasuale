@@ -49,6 +49,7 @@ function setup() {
 
   // Gestisco la pressione del tasto per sorteggiare
   pesca.mousePressed(function() {
+    pesca.hide();
     // Passo come argomento il nome selezionato per ignorarlo durante il sorteggio
     sorteggiaPersona({nome: nomeSelezionato})
       .then(sorteggiato => {
