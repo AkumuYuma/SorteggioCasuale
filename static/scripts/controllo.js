@@ -1,6 +1,6 @@
 let readURL = "http://localhost:5000/api/persone"
 let listaPersone;
-let intervalloAggiornamento = 1000;
+let intervalloAggiornamento = 5000;
 
 function setup() {
   noCanvas();
@@ -10,7 +10,6 @@ function setup() {
     readPeople() // Restituisce una promessa
     .then(nomi => {
       listaPersone.html("Lista: <br>");
-      console.log(nomi);
       for (let nome of nomi) {
         listaPersone.html(nome + "<br>", true);
       }

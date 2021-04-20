@@ -5,6 +5,12 @@ import random
 # Carico la lista di persone dal file
 PERSONE = json.load(open("dati/persone.json"))
 
+
+#------------------------------------------------------------------------------#
+# Operazioni live. Le operazioni seguenti sono offettuate solamente sulla variabile live.
+# Resettato il server, tutte le modifiche live verranno dimenticate.
+
+
 # Handler per una richiesta di tipo GET all'api
 def read():
     """
@@ -16,6 +22,7 @@ def read():
 
     return sorted(PERSONE["nomi"])
 
+# Handler per la richiesta di estrazione
 def estrai(nome):
     """
     Questa funzione estrae casualmente una persona dalla lista. Se viene passato il parametro nome, esso viene ignorato durante l'estrazione
@@ -72,7 +79,23 @@ def estrai(nome):
     return estratto
 
 
+#------------------------------------------------------------------------------#
+# Operazioni statiche. Le operazioni statiche hanno effetto ANCHE sul file statico contenente i dati.
+# Le modifiche effettuate con queste richieste saranno permanenti e ricordate anche dopo il riavvio del server
 
+
+def read_static():
+    """
+    Questa funzione legge e restituisce la lista statica di persone, ricarica il file json statico
+    e lo passa come risposta.
+
+    :return: Lista ordinata delle persone.
+    """
+    risposta = json.load(open("dati/persone.json"))
+    return sorted(risposta["nomi"])
+
+
+# Creazione di una nuova persona
 def create(nome):
     """
 
@@ -100,6 +123,7 @@ def create(nome):
             description = str(nome) + " già esistente"
         )
 
+# Eliminazione di una persona
 def delete(nome):
     """
 

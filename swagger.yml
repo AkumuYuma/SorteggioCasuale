@@ -17,9 +17,9 @@ paths:
     get:
       operationId: persone.read
       tags:
-        - Persone
-      summary: Legge tutte le persone
-      description: Legge la lista di persone
+        - Persone - Live
+      summary: Legge tutte le persone nella variabile live
+      description: Legge la lista di persone live.
       responses:
         200:
           description: Operazione di lettura effettuata con successo
@@ -35,9 +35,9 @@ paths:
     post:
       operationId: persone.estrai
       tags:
-        - Persone
-      summary: Estrae una persona casuale
-      description: Estrae casualmente una persona dalla lista, la persona estratta viene eliminata
+        - Persone - Live
+      summary: Estrae una persona casuale dalla lista live
+      description: Estrae casualmente una persona dalla lista, la persona estratta viene eliminata dalla variabile live. Questa operazione non ha effetto sul file statico e verrà dimenticata al riavvio del server.
       parameters:
         - name: nome
           in: body
@@ -54,15 +54,32 @@ paths:
                 type: string
                 description: Nome della persona estratta
 
+  /persone/static/read:
+    # Legge tutte le persone
+    get:
+      operationId: persone.read_static
+      tags:
+        - Persone - Static
+      summary: Legge tutte le persone dal file statico
+      description: Legge la lista di persone statica. Si aggiorna solo se effettuata un'operazione statica
+      responses:
+        200:
+          description: Operazione di lettura effettuata con successo
+          schema:
+            type: array
+            items:
+              properties:
+                name:
+                  type: string
 
-  /persone/{nome}:
+  /persone/static/{nome}:
     # Crea una nuova persona
     post:
       operationId: persone.create
       tags:
-        - Persone
+        - Persone - Static
       summary: Crea una nuova persona e la aggiunge alla lista
-      description: Crea una nuova persona
+      description: Crea una nuova persona. Il cambiamento è permanente ed effettuato sul file statico
       parameters:
         - name: nome
           in: path
@@ -77,9 +94,9 @@ paths:
     delete:
       operationId: persone.delete
       tags:
-        -  Persone
+        -  Persone - Static
       summary:  Elimina una persona dalla lista
-      description:  Elimina una persona
+      description:  Elimina una persona. Il cambiamento è permanente ed effettuato sul file statico
       parameters:
         - name: nome
           in: path
