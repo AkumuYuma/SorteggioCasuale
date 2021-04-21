@@ -53,7 +53,7 @@ def getSession():
     """
     global session
     ip = request.remote_addr
-    if ip in session:
+    if session and ip in session:
         return make_response("Sei nella sessione, IP: " + str(ip), 200)
     else:
         return make_response("Non sei nella sessione", 404);
@@ -68,8 +68,8 @@ def delSession():
     """
     global session
     ip = request.remote_addr
-    if ip in session:
-        sessione.remove(ip)
+    if session and ip in session:
+        session.remove(ip)
         return make_response("Sessione eliminata con successo", 200)
     else:
         return make_response("Non sei nella sessione", 404)

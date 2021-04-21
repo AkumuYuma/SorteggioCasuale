@@ -2,10 +2,18 @@
 let sorteggioURL = "http://localhost:5000/api/persone/casuale/";
 // Url per la lista statica di persone
 let readURL = "http://localhost:5000/api/persone/static/read";
+//Url per settare la sessione
+let setSessionURL = "http://localhost:5000/setsession"
+//Url per ottenere la sessione attual
+let getSessionURL = "http://localhost:5000/getsession"
 // Variabile per la selezione del nome
 let selezione;
 // Variabile per nome selezionato
 let nomeSelezionato;
+// Variabile attaccata al tasto pesca
+let pesca;
+// Variabile attaccata al paragrafo risultato
+let risultato;
 
 function preload() {
   // Carico il file statico per la selezione della persona da ignorare e popolo il campo di selezione
@@ -13,7 +21,20 @@ function preload() {
   selezione.style("font-size", "25px");
   selezione.style("text-align", "center");
   selezione.style("width", "200px");
+  // Variabile attaccata al paragrafo risultato
+  risultato = select("#risultato");
+  // Variabile attaccata al tasto pesca
+  pesca = select("#pesca");
+  pesca.style("width", "260px");
+  pesca.style("margin-top", "20px");
 
+  //Se c'è una sessione attiva nascondo il tasto di sorteggio
+  fetch(getSessionURL)
+  .then(response => {
+    if (response.status == 200) {
+      pesca.hide();
+    }
+  });
 
   // Popolo la selezione
   leggiPersone()
@@ -26,7 +47,7 @@ function preload() {
     selezione.selected(listaPersone[0]);
     nomeSelezionato = listaPersone[0];
   })
-  .catch( err => console.error(err) );
+  .catch( err => console.log(err) );
 
 }
 
@@ -34,22 +55,17 @@ function preload() {
 function setup() {
   // Gestitsco la pressione del tasto per il sorteggio e tengo aggiornato il valore della selezione
   noCanvas();
-
   // Quando cambio il nome scelto nella selezione aggiorno il nome selezionato
   selezione.changed(() => {
     if (selezione.value()) nomeSelezionato = selezione.value();
   });
 
-  // Variabile attaccata al paragrafo risultato
-  let risultato = select("#risultato");
-  // Variabile attaccata al tasto pesca
-  let pesca = select("#pesca");
-  pesca.style("width", "260px");
-  pesca.style("margin-top", "20px");
-
   // Gestisco la pressione del tasto per sorteggiare
   pesca.mousePressed(function() {
+    // Nascondo il tasto di sorteggio per impedire di sorteggiare una seconda volta
     pesca.hide();
+    // Creo la sessione
+    fetch(setSessionURL);
     // Passo come argomento il nome selezionato per ignorarlo durante il sorteggio
     sorteggiaPersona({nome: nomeSelezionato})
       .then(sorteggiato => {
