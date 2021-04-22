@@ -1,5 +1,5 @@
 // Url per il sorteggio casuale
-let sorteggioURL = "https://sorteggio.herokuapp.com/persone/casuale/";
+let sorteggioURL = "https://sorteggio.herokuapp.com/api/persone/casuale/";
 // Url per la lista statica di persone
 let readURL = "https://sorteggio.herokuapp.com/api/persone/static/read";
 // Variabile per la selezione del nome
@@ -27,6 +27,7 @@ function preload() {
   //Se c'è una sessione attiva nascondo il tasto di sorteggio
   if (sessionStorage.getItem("visitato")) {
     pesca.hide();
+    risultato.html(sessionStorage.getItem("visitato"));
   }
 
   // Popolo la selezione
@@ -57,12 +58,14 @@ function setup() {
   pesca.mousePressed(function() {
     // Nascondo il tasto di sorteggio per impedire di sorteggiare una seconda volta
     pesca.hide();
-    // Creo la sessione
-    sessionStorage.setItem("visitato", true);
+
     // Passo come argomento il nome selezionato per ignorarlo durante il sorteggio
     sorteggiaPersona({nome: nomeSelezionato})
       .then(sorteggiato => {
-        risultato.html("Hai sorteggiato: " + sorteggiato.replace(/"/g, ""));
+        let risposta = "Hai sorteggiato: " + sorteggiato.replace(/"/g, "")
+        risultato.html(risposta);
+        // Creo la sessione
+        sessionStorage.setItem("visitato", risposta);
       })
       .catch(err => risultato.html("Oh no, non ci sono più persone da sorteggiare!"));
   });
