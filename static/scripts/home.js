@@ -1,11 +1,11 @@
 // Url per il sorteggio casuale
-let sorteggioURL = "http://localhost:5000/api/persone/casuale/";
+let sorteggioURL = "https://sorteggio.herokuapp.com/api/persone/casuale/";
 // Url per la lista statica di persone
-let readURL = "http://localhost:5000/api/persone/static/read";
+let readURL = "https://sorteggio.herokuapp.com/api/persone/static/read";
 //Url per settare la sessione
-let setSessionURL = "http://localhost:5000/setsession"
+let setSessionURL = "https://sorteggio.herokuapp.com/setsession"
 //Url per ottenere la sessione attual
-let getSessionURL = "http://localhost:5000/getsession"
+let getSessionURL = "https://sorteggio.herokuapp.com/getsession"
 // Variabile per la selezione del nome
 let selezione;
 // Variabile per nome selezionato
