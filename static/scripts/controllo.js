@@ -1,4 +1,4 @@
-let readURL = "https://sorteggio.herokuapp.com/api/persone"
+let readURL = "https://sorteggio.herokuapp.com/api/persone";
 let listaPersone;
 let intervalloAggiornamento = 2000;
 
