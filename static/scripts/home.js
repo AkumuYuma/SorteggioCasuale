@@ -17,12 +17,14 @@ function preload() {
   selezione.style("font-size", "25px");
   selezione.style("text-align", "center");
   selezione.style("width", "200px");
+  selezione.style("height", "50px");
   // Variabile attaccata al paragrafo risultato
   risultato = select("#risultato");
   // Variabile attaccata al tasto pesca
   pesca = select("#pesca");
-  pesca.style("width", "260px");
+  pesca.style("width", "150px");
   pesca.style("margin-top", "20px");
+  pesca.style("padding", "right"); 
 
   //Se c'è una sessione attiva nascondo il tasto di sorteggio
   if (sessionStorage.getItem("visitato")) {
