@@ -24,7 +24,7 @@ function preload() {
   pesca = select("#pesca");
   pesca.style("width", "20px");
   pesca.style("margin-top", "20px");
-  pesca.style("padding-right", "20px");
+  pesca.style("float", "right");
 
   //Se c'è una sessione attiva nascondo il tasto di sorteggio
   if (sessionStorage.getItem("visitato")) {
