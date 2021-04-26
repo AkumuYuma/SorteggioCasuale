@@ -22,7 +22,7 @@ function preload() {
   risultato = select("#risultato");
   // Variabile attaccata al tasto pesca
   pesca = select("#pesca");
-  pesca.style("width", "20px");
+  pesca.style("width", "50px");
   pesca.style("margin-top", "20px");
   pesca.style("float", "right");
 
