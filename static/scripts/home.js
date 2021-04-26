@@ -22,9 +22,9 @@ function preload() {
   risultato = select("#risultato");
   // Variabile attaccata al tasto pesca
   pesca = select("#pesca");
-  pesca.style("width", "50px");
+  pesca.style("width", "100px");
   pesca.style("margin-top", "20px");
-  pesca.style("float", "right");
+  pesca.style("float", "left");
 
   //Se c'è una sessione attiva nascondo il tasto di sorteggio
   if (sessionStorage.getItem("visitato")) {
