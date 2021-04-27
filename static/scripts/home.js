@@ -1,7 +1,7 @@
 // Url per il sorteggio casuale
-let sorteggioURL = "https://sorteggio.herokuapp.com/api/persone/casuale/";
+let sorteggioURL = "http://90.147.102.152:443/api/persone/casuale/";
 // Url per la lista statica di persone
-let readURL = "https://sorteggio.herokuapp.com/api/persone/static/read";
+let readURL = "http://90.147.102.152:443/api/persone/static/read";
 // Variabile per la selezione del nome
 let selezione;
 // Variabile per nome selezionato
@@ -78,7 +78,10 @@ function setup() {
 async function leggiPersone() {
   // Funzione asincrona per leggere il file statico dell'api
   // :return: promessa di ottenere la lista statica delle persone come json
-  const response = await fetch(readURL);
+  const response = await fetch(readURL, {
+    method: "GET", 
+    headers: {"Content-Type": "application/json", "Accept": "application/json"}
+  });
   if (response.status == 200) {
     return response.json();
   } else {

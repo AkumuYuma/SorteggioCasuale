@@ -1,8 +1,11 @@
-from flask import *
+from flask import render_template
+from flask_cors import CORS
 import connexion
 # Creo l'istanza dell'applicazione
 # La specification_dir indica dove trovare il file swagger
 app = connexion.App(__name__, specification_dir='./')
+
+CORS(app.app)
 # Leggo il file swagger per configurare l'endpoint dell'api
 app.add_api("swagger.yml")
 
@@ -31,4 +34,4 @@ def controllo():
 
 if __name__ == "__main__":
     # Per esporlo alla rete modificare host = "0.0.0.0"
-    app.run(host = '0.0.0.0', debug = False)
+    app.run(host = '0.0.0.0', port= 443, debug = False)

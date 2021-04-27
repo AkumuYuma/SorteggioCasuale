@@ -1,4 +1,4 @@
-from flask import make_response, abort
+from flask import make_response, abort, jsonify
 import json
 import random
 
@@ -19,7 +19,7 @@ def read():
     :return: Lista ordinata delle persone
 
     """
-
+    global PERSONE
     return sorted(PERSONE["nomi"])
 
 # Handler per la richiesta di estrazione
@@ -37,7 +37,7 @@ def estrai(nome):
     :return: Persona estratta
 
     """
-
+    global PERSONE
     # Se la lista è vuota esco subito
     if not PERSONE["nomi"]:
         abort(
@@ -59,22 +59,18 @@ def estrai(nome):
                 406,
                 description = "La lista contiene solo te stesso"
             )
-        # Se la persona da ignorare non è nella lista
-        elif nome["nome"] not in PERSONE["nomi"]:
-            abort(
-                404,
-                description = "La persona da ignorare non è nella lista"
-            )
-
-        # Lo rimuovo per non sorteggiarlo
-        PERSONE["nomi"].remove(nome["nome"])
-
-    # Estraggo un elemento casuale
+        # Se la persona da ignorare è nella lista
+        elif nome["nome"] in PERSONE["nomi"]:
+            # Lo rimuovo per non sorteggiarlo
+            PERSONE["nomi"].remove(nome["nome"])
+            # Estraggo un elemento casuale
+            estratto = PERSONE["nomi"].pop(random.randint(0, len(PERSONE["nomi"]) - 1))
+            # Lo riaggiungo alla lista 
+            PERSONE["nomi"].append(nome["nome"])
+            return estratto
+    
+    # Se non viene passato il nome estraggo tra tutti
     estratto = PERSONE["nomi"].pop(random.randint(0, len(PERSONE["nomi"]) - 1))
-
-    # Se viene passato il nome lo riaggiungo alla lista
-    if (nome):
-        PERSONE["nomi"].append(nome["nome"])
 
     return estratto
 
@@ -105,7 +101,7 @@ def create(nome):
     :return: 201 successo, 406 persona esistente
 
     """
-
+    global PERSONE
     # Se la persona non è nella lista, la aggiungo
     if nome not in PERSONE["nomi"] and nome is not None:
         # Aggiungo la persona alla lista
@@ -133,7 +129,7 @@ def delete(nome):
     :return: 200 se eliminata con successo, 404 se persona non trovata
 
     """
-
+    global PERSONE
     # Se la persona è nella lista la rimuovo
     if nome in PERSONE["nomi"]:
         # Rimuovo la persona dalla variabile
