@@ -1,0 +1,28 @@
+.container {
+  width: 960px;
+  margin: auto;
+  display: flex;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: white;
+}
+
+.header {
+  width: 900px;
+  font-size: 26px;
+  padding: 50px;
+  border: 50px solid #2dcd50;
+  background-color: #30a149;
+  text-align: center;
+
+}
+
+h1 {
+  font-family: "Brush Script MT", cursive;
+  font-size: 60px;
+}
+
+p {
+  font-size: 20px;
+}
+
