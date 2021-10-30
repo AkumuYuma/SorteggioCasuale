@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS Persone (
+    idPersona INTEGER PRIMARY KEY,
+    nome VARCHAR(20) NOT NULL,
+    cognome VARCHAR(20) NOT NULL DEFAULT ""
+);
