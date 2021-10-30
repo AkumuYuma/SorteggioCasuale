@@ -17,13 +17,13 @@ Per entrare nel docker del db e modificare dall'interno:
 Questo comando ti fa entrare come utente root nel db. Puoi anche fare `# mysql -u root -p db_persone` per attaccarti direttamente al database
 (e non dover fare `> use db_persone;` dentro mysql).
 
-# Commento al [docker-compose.yml](docker-compose.yml) file
+# Commento al [docker-compose.yml](./docker_compose/docker-compose.yml) file
 ## Database:
-importante il mounting della cartella [db_init](db_init) in /docker-entrypoint-initdb.d.
+importante il mounting della cartella [db_init](./docker_compose/db_init) in /docker-entrypoint-initdb.d.
 Il docker di mysql esegue qualsiasi script `.sh, .sql, .sql.gz` presente in quella cartella.
 Quindi monto la cartella db_init su docker-entrypoint-initdb.d.
 
-Nella cartella db_init è presente lo script [setup.sql](setup.sql), che crea la tabella di persone.
+Nella cartella db_init è presente lo script [setup.sql](./docker_compose/db_init/setup.sql), che crea la tabella di persone.
 In questo modo all'avvio dell'applicazione viene creata una tabella, alla quale il backend potrà connettersi per effettuale le modifiche
 tramite la rest api.
 
