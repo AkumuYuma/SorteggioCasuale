@@ -9,6 +9,7 @@ Tramite docker compose i 3 container possono comunicare e gli script php possono
 
 # Per startare il servizio:
 All'interno della cartella ./docker_compose eseguire `# restart_services.sh`.
+Oppure `# docker-compose up -d`.
 ## MEMO:
 Per entrare nel docker del db e modificare dall'interno:
 1. `# docker exec -it sorteggio_db bash`
@@ -30,5 +31,9 @@ tramite la rest api.
 Non so bene (Devi capire come funziona il file conf.d)
 ## php:
 Non so bene
+
+# Review del funzionamento dell'applicazione
+Quando i servizi sono up and running con docker-compose, viene servito tutto il contenuto della cartella ./html_files/ a partire da index.html
+Attualmente ci sono solo due pagine di prova per verificare che funzioni tutto.
 
 # Ora bisogna scrivere il codice :)
