@@ -1,9 +1,8 @@
 Sto seguendo questa [guida](https://html.it/pag/69110/creare-il-database-2/). L'idea è fare un buon backend in php e un frontend decente usando tailwind css.
 
-Servizio composto da 3 docker:
-1. nginx -> Apre un web server configurato con php fastcgi sulla porta 80 della macchina locale. (porta 80 anche nel docker)
-2. php-fpm -> Il server php per il backend.
-3. mysql -> Per il database, apre la porta 3000 nel docker
+Servizio composto da 2 docker:
+1. php-apache -> Server apache con php. Serve il contenuto della cartella app.
+2. mysql -> Per il database, apre la porta 3306 nel docker
 
 Tramite docker compose i 3 container possono comunicare e gli script php possono connettersi al db.
 
@@ -27,13 +26,23 @@ Nella cartella db_init è presente lo script [setup.sql](./docker_compose/db_ini
 In questo modo all'avvio dell'applicazione viene creata una tabella, alla quale il backend potrà connettersi per effettuale le modifiche
 tramite la rest api.
 
-## Nginx:
-Non so bene (Devi capire come funziona il file conf.d)
-## php:
-Non so bene
+## app:
+Per prima cosa buildo l'immagine con il [Dockerfile](./docker-compose/Dockerfile) presente nella cartella.
+Il Dockerfile semplicemente prende l'immagine di php-apache e installa le librerie necessarie per l'uso del database.
+Il file compose semplicemente builda l'immagine e monta il contenuto della cartella [app](./app) nella cartella /var/www/html/ del docker (cartella di default che viene servita da apache). 
+Pacchetti php necessari: 
+- mysqli 
+- pdo 
+- pdo_mysql 
+
+Nota: Lo script docker-php-ext-install è messo a disposizione dall'immagine php-apache appositamente per semplificare l'istallazione di pacchetti php nel docker. 
+Se necessario usare delle particolari configurazioni di apache bisogna copiare il propfio file di configurazione (.conf) nella cartella /etc/apache2 del docker. 
 
 # Review del funzionamento dell'applicazione
-Quando i servizi sono up and running con docker-compose, viene servito tutto il contenuto della cartella ./html_files/ a partire da index.html
-Attualmente ci sono solo due pagine di prova per verificare che funzioni tutto.
+Quando i servizi sono up and running con docker-compose, viene servito tutto il contenuto della cartella ./app a partire da index.html
 
+L'idea è fare una pagina di sorteggio e una semplice interfaccia di login. 
+L'utente loggato può gestire i nomi da sorteggiare, aggiungere e rimuovere persone dal database, tutto tramite interfaccia web. L'utente non loggato può solamente sorteggiare un nome.  
+
+Attualmente ci sono solo due pagine di prova per verificare che funzioni tutto.
 # Ora bisogna scrivere il codice :)

@@ -4,41 +4,27 @@ services:
 
   # Db config
   db:
+    container_name: sorteggio_db
     image: mysql:latest
     restart: always
-    container_name: sorteggio_db
     environment:
       MYSQL_DATABASE: db_persone # Nome del database che viene creato quando l'istanza viene fatta partire
       MYSQL_ROOT_PASSWORD: root # Password dell'utente root (necessaria)
     volumes:
       - ./db_init:/docker-entrypoint-initdb.d # Per eseguire lo script di setup
     ports:
-      - 3000:3000
+      - 3306:3306
     networks:
       - sorteggio
 
-
-  # Nginx config
-  web:
-    image: nginx:alpine
-    container_name: sorteggio_nginx
+  # app 
+  app:
+    container_name: sorteggio_app
+    build: .
+    volumes:
+      - ../app:/var/www/html
     ports:
-      - 80:80
-    volumes:
-      - ../html_files:/public_html
-      - ./conf.d:/etc/nginx/conf.d
-    networks:
-      - sorteggio
-
-
-  # Php config
-  php:
-    image: php:7.4-fpm
-    container_name: sorteggio_php
-    volumes:
-      - ../html_files:/public_html
-    expose:
-      - 9000
+      - 8000:80
     networks:
       - sorteggio
 
