@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS Persone (
-    idPersona INTEGER PRIMARY KEY,
+    idPersona INTEGER NOT NULL AUTO_INCREMENT,
     nome VARCHAR(20) NOT NULL,
-    cognome VARCHAR(20) NOT NULL DEFAULT ""
+    cognome VARCHAR(20) NOT NULL DEFAULT "", 
+    PRIMARY KEY (idPersona)
 );

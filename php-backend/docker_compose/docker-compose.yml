@@ -11,13 +11,14 @@ services:
       MYSQL_DATABASE: db_persone # Nome del database che viene creato quando l'istanza viene fatta partire
       MYSQL_ROOT_PASSWORD: root # Password dell'utente root (necessaria)
     volumes:
+      - datavolume:/var/lib/mysql # Creo un volume nella macchina locale per rendere i dati persistenti
       - ./db_init:/docker-entrypoint-initdb.d # Per eseguire lo script di setup
     ports:
       - 3306:3306
     networks:
       - sorteggio
 
-  # app 
+  # app
   app:
     container_name: sorteggio_app
     build: .
@@ -31,3 +32,6 @@ services:
 
 networks:
   sorteggio:
+
+volumes:
+  datavolume:

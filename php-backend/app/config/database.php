@@ -15,9 +15,9 @@ class Database {
     public $connessione = null; 
     
     public function getConnection(): mixed { // : mixed indica il tipo di ritorno della funzione (type hinting)
-        /*
-            Inizializza e restituisce la connessione al db. 
-            @return: PDO object (connessione al db)
+        /**
+        *   Inizializza e restituisce la connessione al db. 
+        *   @return: PDO object (connessione al db)
         */
         try {
             $dsn = "mysql:host=".$this->host.":".$this->port.";dbname=".$this->db_name;
